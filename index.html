@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div style="width:200px;height:200px;border:dashed;background-color:darkseagreen;border-width:1px;">
+        <p>1.猜测一个0到1000的数<br />2.双击文本框重新输入<br />3.输入result显示目标数值</p>
+        <label id="lblResult" style="width:30px;background-color:crimson">显示对错</label>
+        <br />
+        <label id="lblCount" style="background-color:darkcyan">猜测次数：0</label>
+        <br />
+        <input type="text" id="txtNum" onchange="getResult()" ondblclick="CaiShu()" />
+        <br />
+        <label id="lblDebug">Coded By Rick Astley (bushi)&copy;2022</label>
+        <button hidden="hidden" id="btnReset" onclick="reset()">重新开始</button>
+    </div>
+
+
+    <script>
+        var shuzhi = parseInt(Math.random() * 1000);
+        var cishu = 0;
+        //document.getElementById("realValue").innerHTML = shuzhi;
+
+        var lblResult = document.getElementById("lblResult");
+        var lblDebug = document.getElementById("lblDebug");
+        var txtNum = document.getElementById("txtNum");
+
+        function CaiShu() {
+            var num = txtNum.value;
+            //alert(num);
+            if (shuzhi>num) {
+                lblResult.innerHTML = "猜小了";
+                cishu = cishu + 1;
+                txtNum.textContent = "";
+                
+            }
+            if(shuzhi<num) {
+                lblResult.innerHTML = "猜大了";
+                cishu = cishu + 1;
+                txtNum.textContent = "";
+            }
+            if(shuzhi==num)
+            {
+                lblResult.innerHTML = "猜对了";
+                document.getElementById("btnReset").hidden = null;
+            }
+            document.getElementById("lblCount").innerHTML ="猜测次数"+ cishu;
+        }
+
+        function reset() {
+            shuzhi = parseInt(Math.random() * 100);
+            cishu = 0;
+            document.getElementById("btnReset").hidden = "hidden";
+            document.getElementById("txtNum").value = "";
+            document.getElementById("lblResult").innerHTML = "展示对错";
+            document.getElementById("lblCount").innerHTML = 0;
+        }
+
+        function getResult() {
+            var result = txtNum.value == "result";
+            //lblDebug = result;
+            if (result) {
+                txtNum.value = shuzhi;
+            }
+        }
+    </script>
+</body>
+</html>
